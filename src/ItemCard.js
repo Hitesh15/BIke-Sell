@@ -1,0 +1,78 @@
+import React from "react";
+import PropTypes from "prop-types";
+
+export const ItemCard = ({
+  toggleEditing,
+  item,
+  onChange,
+  index,
+  onDelete
+}) => (
+  <div className="col-md-6 col-lg-3">
+    <div className="card mb-3">
+      <div className="card-body">
+        {item.isEditing ? (
+          <div className="mb-4">
+            <input
+              type="text"
+              name="scholarno"
+              className="form-control mb-2 mr-sm-2"
+              placeholder="Item"
+              value={item.scholarno}
+              onChange={event => onChange(event, index)}
+              required
+            />
+            <input
+              type="number"
+              name="charge"
+              className="form-control"
+              placeholder="Price"
+              value={item.charge}
+              onChange={event => onChange(event, index)}
+              required
+            />
+          </div>
+        ) : (
+          <div>
+            <h4 className="card-title text-center">{item.scholarno}</h4>
+            <div className="row justify-content-center mb-4">
+              <p className="card-text">
+                <span className="badge badge-secondary py-2 mr-5">CHARGE</span>
+                <span>{item.charge}</span>
+              </p>
+            </div>
+          </div>
+        )}
+
+        <div className="row justify-content-center">
+          <div>
+            <button
+              type="button"
+              className="btn btn-primary mr-2"
+              onClick={toggleEditing}
+            >
+              {item.isEditing ? "Save" : "Edit"}
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={onDelete}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+ItemCard.propTypes = {
+  item: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired
+  }),
+  toggleEditing: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
+};
